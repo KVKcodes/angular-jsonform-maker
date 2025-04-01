@@ -1,0 +1,56 @@
+<div class="container mx-auto max-w-6xl px-4 py-6">
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold text-gray-800 mb-4">JSON Form Maker</h1>
+    <p class="text-gray-600 mb-6">Create dynamic forms from JSON schema definitions with real-time validation and submission.</p>
+    
+    <div class="flex border-b border-gray-200">
+      <button
+        [ngClass]="{'text-blue-600 border-b-2 border-blue-600 font-medium': activeTab === 'layout1', 'text-gray-500 hover:text-gray-700': activeTab !== 'layout1'}"
+        class="px-6 py-3 text-sm flex items-center"
+        (click)="setActiveTab('layout1')">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+        </svg>
+        Personal Information Form
+      </button>
+      <button
+        [ngClass]="{'text-blue-600 border-b-2 border-blue-600 font-medium': activeTab === 'layout2', 'text-gray-500 hover:text-gray-700': activeTab !== 'layout2'}"
+        class="px-6 py-3 text-sm flex items-center"
+        (click)="setActiveTab('layout2')">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M5 5a3 3 0 015-2.236A3 3 0 0114.83 6H16a2 2 0 110 4h-5V9a1 1 0 10-2 0v1H4a2 2 0 110-4h1.17C5.06 5.687 5 5.35 5 5zm4 1V5a1 1 0 10-1 1h1zm3 0a1 1 0 10-1-1v1h1z" clip-rule="evenodd" />
+          <path d="M9 11H3v5a2 2 0 002 2h4v-7zM11 18h4a2 2 0 002-2v-5h-6v7z" />
+        </svg>
+        Product Information Form
+      </button>
+      <button
+        [ngClass]="{'text-blue-600 border-b-2 border-blue-600 font-medium': activeTab === 'custom', 'text-gray-500 hover:text-gray-700': activeTab !== 'custom'}"
+        class="px-6 py-3 text-sm flex items-center"
+        (click)="setActiveTab('custom')">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+        </svg>
+        Custom Form Builder
+      </button>
+    </div>
+  </div>
+
+  <!-- Tab description -->
+  <div class="mb-6">
+    <div *ngIf="activeTab === 'layout1'" class="bg-blue-50 p-4 rounded-lg text-blue-800 text-sm">
+      <p>This form demonstrates personal information collection with proper validation. It includes required fields, email format validation, and address information with ZIP code validation.</p>
+    </div>
+    <div *ngIf="activeTab === 'layout2'" class="bg-blue-50 p-4 rounded-lg text-blue-800 text-sm">
+      <p>This form demonstrates product information collection with dynamic price calculation. It calculates the final price based on the base price, discount percentage, and tax rate.</p>
+    </div>
+    <div *ngIf="activeTab === 'custom'" class="bg-blue-50 p-4 rounded-lg text-blue-800 text-sm">
+      <p>Create your own dynamic forms by editing JSON Schema and UI Schema directly. This demonstrates the full power of the JSON Forms library by allowing you to define your own forms on the fly.</p>
+    </div>
+  </div>
+
+  <div [ngSwitch]="activeTab">
+    <app-form-layout-one *ngSwitchCase="'layout1'"></app-form-layout-one>
+    <app-form-layout-two *ngSwitchCase="'layout2'"></app-form-layout-two>
+    <app-form-layout-custom *ngSwitchCase="'custom'"></app-form-layout-custom>
+  </div>
+</div>

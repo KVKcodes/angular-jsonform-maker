@@ -1,27 +1,155 @@
-# JsonFormMaker
+# JSON Form Maker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.11.
+A dynamic form generation application built with Angular 15 and JSON Forms, featuring responsive design and custom renderers.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Dynamic form generation from JSON schemas
+- Two form layouts: Personal Information and Product Information
+- Custom renderers for enhanced UI components
+- Real-time validation and interactive elements
+- Responsive design for mobile and desktop
+- Tailwind CSS styling
 
-## Code scaffolding
+## Prerequisites
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Node.js (v18 or higher recommended)
+- Angular CLI 15.x
+- npm or yarn package manager
 
-## Build
+## Installation
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Clone the repository:
+```bash
+git clone [your-repository-url]
+cd json-form-maker
+```
 
-## Running unit tests
+2. Install dependencies:
+```bash
+npm install
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+3. Start the development server:
+```bash
+ng serve
+```
 
-## Running end-to-end tests
+4. Open your browser and navigate to `http://localhost:4200`
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Project Structure
 
-## Further help
+```
+src/
+├── app/
+│   ├── forms/
+│   │   ├── form-container/       # Main container component
+│   │   ├── form-layout-one/      # Personal Information form
+│   │   ├── form-layout-two/      # Product Information form
+│   │   └── services/            # Form submission service
+│   ├── shared/
+│   │   └── renderers/           # Custom form renderers
+│   └── app.module.ts
+└── styles.css                   # Global Tailwind CSS styles
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## JSON Schema Structure
+
+### Personal Information Form
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "firstName": { "type": "string", "minLength": 2 },
+    "lastName": { "type": "string", "minLength": 2 },
+    "email": { "type": "string", "format": "email" },
+    "age": { 
+      "type": "integer",
+      "minimum": 18,
+      "maximum": 120
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "street": { "type": "string" },
+        "city": { "type": "string" },
+        "zipCode": { "type": "string", "pattern": "^\\d{5}(-\\d{4})?$" }
+      }
+    }
+  },
+  "required": ["firstName", "lastName", "email", "age"]
+}
+```
+
+### Product Information Form
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "name": { "type": "string", "minLength": 3 },
+    "description": { "type": "string" },
+    "category": { 
+      "type": "string",
+      "enum": ["Electronics", "Clothing", "Books", "Other"]
+    },
+    "inStock": { "type": "boolean" },
+    "price": { "type": "number", "minimum": 0 },
+    "discount": { 
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "taxRate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    }
+  },
+  "required": ["name", "price"]
+}
+```
+
+## Custom Renderers
+
+The application includes custom renderers for:
+- Age input with slider
+- Price calculation with dynamic updates
+- Form submission states with loading indicators
+
+## Form Validation
+
+- Client-side validation based on JSON schema
+- Custom validation for:
+  - Email format
+  - ZIP code pattern
+  - Age constraints
+  - Price calculations
+
+## Responsive Design
+
+The application is fully responsive with:
+- Mobile-first approach
+- Flexible layouts using Tailwind CSS
+- Adaptive form controls
+- Touch-friendly inputs
+
+## Assumptions
+
+1. Form submissions are simulated with a delay to demonstrate loading states
+2. Product pricing calculations are done client-side
+3. Form data is not persisted between sessions
+4. Basic browser form validation is enhanced with custom validators
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
